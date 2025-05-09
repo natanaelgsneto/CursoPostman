@@ -15,7 +15,7 @@ newman-reporter-html
 [Visite a  API Utilizada](https://serverest.dev/)
 
 #como instalar o ambiente
-primeiro baixe o node clicando aqui [BaixarNode](https://nodejs.org/en/download)
+primeiro baixe o node clicando aqui [BaixarNode](https://nodejs.org/en/download)<b/>
 segundo baixar o newman   [BaixarNewman](https://www.npmjs.com/package/newman)
 terceiro: realize a instalação dos relatórios [BaixarNewman](https://github.com/postmanlabs/newman-reporter-html) e [Baixar NPM]( https://www.npmjs.com/package/newman-reporter-html)
 
