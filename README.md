@@ -40,3 +40,4 @@ newman run serverest.postman_collection.json -e ServerRest_env.postman_environme
  newman run serverest.postman_collection -e ServerRest_env.postman_environment -r cli,htmlextra --reporter-htmlextra-export ./relatorios/resultado.html
 
 #Report 
+Se você optou por rodar os testes com o htmlextra, você gerou um arquivo html com o resultados dos testes e para verificar as validações, você deve abrir a pasta **newman** que foi criado no local em que os arquivos de collection e environmet se encontram.  
