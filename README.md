@@ -3,7 +3,7 @@
 # O que é?
 Este repositório é criado para o bootcamp
 
-# tecnologias utilizadas
+# Tecnologias utilizadas
 Postman
 Newman
 newman htmlextra
