@@ -1,4 +1,4 @@
-# postman
+# Postman
 
 # O que é?
 Este repositório é criado para o bootcamp
