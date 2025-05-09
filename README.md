@@ -31,6 +31,15 @@ terceiro: realize a instalação dos relatórios [BaixarNewman](https://github.c
 3. (Opcional) Especifique a linguagem depois das crases iniciais (como `python`, `bash`, `javascript`, etc.) para ativar a **coloração de sintaxe**.
 4. Faça o commit e envie para o GitHub.
 
+5. ## Exemplo de código Python
+
+```python
+def saudacao(nome):
+    print(f"Olá, {nome}!")
+    
+saudacao("Natanael")
+
+
 ---
 
 ### Resultado no GitHub:
