@@ -1,0 +1,370 @@
+{
+	"info": {
+		"_postman_id": "b0675f37-9970-4ca1-a235-7afbd5830a0a",
+		"name": "Atualização postman",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "44014771",
+		"_collection_link": "https://bold-firefly-54160.postman.co/workspace/CursoPostman~b21d8a07-4042-4bb7-913d-1d7706f54fc0/collection/44014771-b0675f37-9970-4ca1-a235-7afbd5830a0a?action=share&source=collection_link&creator=44014771"
+	},
+	"item": [
+		{
+			"name": "Atualização tv4 para ajv",
+			"item": [
+				{
+					"name": "TV4",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Testa se o status é 200\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"// Verifica se o corpo é um array\r",
+									"pm.test(\"Body is an array\", function () {\r",
+									"    pm.expect(pm.response.json()).to.be.an(\"array\");\r",
+									"});\r",
+									"\r",
+									"// Valida o schema usando tv4\r",
+									"pm.test(\"Schema is valid\", function () {\r",
+									"    var schema = pm.globals.get(\"schema\");\r",
+									"\r",
+									"    // Se a variável for string, precisa de parse\r",
+									"    if (typeof schema === \"string\") {\r",
+									"        schema = JSON.parse(schema);\r",
+									"    }\r",
+									"\r",
+									"    var isValid = tv4.validate(pm.response.json(), schema);\r",
+									"\r",
+									"    // Mostra erros se houver\r",
+									"    if (!isValid) {\r",
+									"        console.log(\"Schema validation error:\", tv4.error);\r",
+									"    }\r",
+									"\r",
+									"    pm.expect(isValid).to.be.true;\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "[\r\n  {\r\n    \"id\": 0,\r\n    \"title\": \"string\",\r\n    \"dueDate\": \"2025-04-16T22:45:44.051Z\",\r\n    \"completed\": true\r\n  }\r\n]",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/api/v1/Activities",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"Activities"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "AJV",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.globals.set(\"schema\", JSON.stringify({\r",
+									"    type: \"array\",\r",
+									"    properties: {\r",
+									"        id: { type: \"number\" },\r",
+									"        name: { type: \"string\" }\r",
+									"    },\r",
+									"    required: [\"id\", \"name\"]\r",
+									"}));\r",
+									"const Ajv = require('ajv');\r",
+									"const ajv = new Ajv({ allErrors: true, verbose: true });\r",
+									"\r",
+									"pm.test(\"Schema is valid\", function () {\r",
+									"    const schema = JSON.parse(pm.globals.get(\"schema\")); // Lê a string e transforma em objeto\r",
+									"    const data = pm.response.json();\r",
+									"    const valid = ajv.validate(schema, data);\r",
+									"\r",
+									"    pm.expect(valid, JSON.stringify(ajv.errors, null, 2)).to.be.true;\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"/*pm.globals.unset(\"schema\");\r",
+									"\r",
+									"pm.globals.set(\"schema\", {\r",
+									"  \"type\": \"array\",\r",
+									"  \"items\": [\r",
+									"    {\r",
+									"      \"type\": \"object\",\r",
+									"      \"properties\": {\r",
+									"        \"id\": {\r",
+									"          \"type\": \"integer\"\r",
+									"        },\r",
+									"        \"title\": {\r",
+									"          \"type\": \"string\"\r",
+									"        },\r",
+									"        \"dueDate\": {\r",
+									"          \"type\": \"string\"\r",
+									"        },\r",
+									"        \"completed\": {\r",
+									"          \"type\": \"boolean\"\r",
+									"        }\r",
+									"      },\r",
+									"      \"required\": [\r",
+									"        \"id\",\r",
+									"        \"title\",\r",
+									"        \"dueDate\",\r",
+									"        \"completed\"\r",
+									"      ]\r",
+									"    }\r",
+									"  ]\r",
+									"})*/"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"type\": \"object\",\r\n  \"properties\": {\r\n    \"id\": { \"type\": \"number\" },\r\n    \"name\": { \"type\": \"string\" }\r\n  },\r\n  \"required\": [\"id\", \"name\"]\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://fakerestapi.azurewebsites.net/api/v1/Users",
+							"protocol": "https",
+							"host": [
+								"fakerestapi",
+								"azurewebsites",
+								"net"
+							],
+							"path": [
+								"api",
+								"v1",
+								"Users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "AJV versão 2",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const Ajv = require(\"ajv\");\r",
+									"const ajv = new Ajv({ allErrors: true, verbose: true });\r",
+									"\r",
+									"pm.test(\"Schema is valid\", function () {\r",
+									"    const schema = pm.globals.get(\"schema\");\r",
+									"    const jsonData = pm.response.json();\r",
+									"    const valid = ajv.validate(JSON.parse(schema), jsonData);\r",
+									"\r",
+									"    pm.expect(valid, JSON.stringify(ajv.errors, null, 2)).to.be.true;\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"/*pm.globals.unset(\"schema\");\r",
+									"\r",
+									"pm.globals.set(\"schema\", {\r",
+									"  \"type\": \"array\",\r",
+									"  \"items\": [\r",
+									"    {\r",
+									"      \"type\": \"object\",\r",
+									"      \"properties\": {\r",
+									"        \"id\": {\r",
+									"          \"type\": \"integer\"\r",
+									"        },\r",
+									"        \"title\": {\r",
+									"          \"type\": \"string\"\r",
+									"        },\r",
+									"        \"dueDate\": {\r",
+									"          \"type\": \"string\"\r",
+									"        },\r",
+									"        \"completed\": {\r",
+									"          \"type\": \"boolean\"\r",
+									"        }\r",
+									"      },\r",
+									"      \"required\": [\r",
+									"        \"id\",\r",
+									"        \"title\",\r",
+									"        \"dueDate\",\r",
+									"        \"completed\"\r",
+									"      ]\r",
+									"    }\r",
+									"  ]\r",
+									"})*/"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "[\r\n  {\r\n    \"id\": 1,\r\n    \"userName\": \"User 1\",\r\n    \"password\": \"Password1\"\r\n  },\r\n  {\r\n    \"id\": 2,\r\n    \"userName\": \"User 2\",\r\n    \"password\": \"Password2\"\r\n  },\r\n  {\r\n    \"id\": 3,\r\n    \"userName\": \"User 3\",\r\n    \"password\": \"Password3\"\r\n  },\r\n  {\r\n    \"id\": 4,\r\n    \"userName\": \"User 4\",\r\n    \"password\": \"Password4\"\r\n  },\r\n  {\r\n    \"id\": 5,\r\n    \"userName\": \"User 5\",\r\n    \"password\": \"Password5\"\r\n  },\r\n  {\r\n    \"id\": 6,\r\n    \"userName\": \"User 6\",\r\n    \"password\": \"Password6\"\r\n  },\r\n  {\r\n    \"id\": 7,\r\n    \"userName\": \"User 7\",\r\n    \"password\": \"Password7\"\r\n  },\r\n  {\r\n    \"id\": 8,\r\n    \"userName\": \"User 8\",\r\n    \"password\": \"Password8\"\r\n  },\r\n  {\r\n    \"id\": 9,\r\n    \"userName\": \"User 9\",\r\n    \"password\": \"Password9\"\r\n  },\r\n  {\r\n    \"id\": 10,\r\n    \"userName\": \"User 10\",\r\n    \"password\": \"Password10\"\r\n  }\r\n]",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://fakerestapi.azurewebsites.net/api/v1/Users",
+							"protocol": "https",
+							"host": [
+								"fakerestapi",
+								"azurewebsites",
+								"net"
+							],
+							"path": [
+								"api",
+								"v1",
+								"Users"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "apikey",
+				"apikey": [
+					{
+						"key": "value",
+						"value": "special-key",
+						"type": "string"
+					},
+					{
+						"key": "key",
+						"value": "api_key",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "New Request",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"// Apaga variáveis de ambiente\r",
+							"let envVars = pm.environment.toObject();\r",
+							"for (let key in envVars) {\r",
+							"    pm.environment.unset(key);\r",
+							"}\r",
+							"\r",
+							"// Apaga variáveis da coleção\r",
+							"let collVars = pm.collectionVariables.toObject();\r",
+							"for (let key in collVars) {\r",
+							"    pm.collectionVariables.unset(key);\r",
+							"}\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"host": true,
+					"user-agent": true,
+					"accept": true,
+					"accept-encoding": true,
+					"connection": true
+				}
+			},
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		}
+	]
+}

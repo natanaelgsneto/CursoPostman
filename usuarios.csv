@@ -1,0 +1,4 @@
+nome,email,password,administrador
+João Silva,joao1@email.com,123456,true
+Maria Souza,maria@email.com,123456,false
+Carlos Lima,carlos@email.com,123456,true

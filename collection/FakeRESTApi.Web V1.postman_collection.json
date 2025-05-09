@@ -1,0 +1,718 @@
+{
+	"info": {
+		"_postman_id": "bf1b03c0-3bfe-4594-9983-feae215ca7c3",
+		"name": "FakeRESTApi.Web V1",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "44014771",
+		"_collection_link": "https://bold-firefly-54160.postman.co/workspace/CursoPostman~b21d8a07-4042-4bb7-913d-1d7706f54fc0/collection/44014771-bf1b03c0-3bfe-4594-9983-feae215ca7c3?action=share&source=collection_link&creator=44014771"
+	},
+	"item": [
+		{
+			"name": "Pet",
+			"item": [
+				{
+					"name": "BuscaPorStatus",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true,
+						"disabledSystemHeaders": {
+							"user-agent": true,
+							"connection": true,
+							"accept-encoding": true,
+							"accept": true
+						}
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://petstore.swagger.io/v2/pet/findByStatus?status=available",
+							"protocol": "https",
+							"host": [
+								"petstore",
+								"swagger",
+								"io"
+							],
+							"path": [
+								"v2",
+								"pet",
+								"findByStatus"
+							],
+							"query": [
+								{
+									"key": "status",
+									"value": "available"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Autenticacão 2",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://petstore.swagger.io/v2/pet/findByStatus?status=sold",
+							"protocol": "https",
+							"host": [
+								"petstore",
+								"swagger",
+								"io"
+							],
+							"path": [
+								"v2",
+								"pet",
+								"findByStatus"
+							],
+							"query": [
+								{
+									"key": "status",
+									"value": "sold"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "apikey",
+				"apikey": [
+					{
+						"key": "value",
+						"value": "special-key",
+						"type": "string"
+					},
+					{
+						"key": "key",
+						"value": "api_key",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Store",
+			"item": []
+		},
+		{
+			"name": "Activities",
+			"item": [
+				{
+					"name": "ALL",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"/// Fixed JSON syntax error and removed redundant test\r",
+									"var schema = {\r",
+									"    \"type\": \"array\",\r",
+									"    \"items\": {\r",
+									"        \"type\": \"object\",\r",
+									"        \"properties\": {\r",
+									"            \"id\": {\r",
+									"                \"type\": \"integer\"\r",
+									"            },\r",
+									"            \"title\": {\r",
+									"                \"type\": \"string\"\r",
+									"            },\r",
+									"            \"dueDate\": {\r",
+									"                \"type\": \"string\"\r",
+									"            },\r",
+									"            \"completed\": {\r",
+									"                \"type\": \"boolean\"\r",
+									"            }\r",
+									"        },\r",
+									"        \"required\": [\r",
+									"            \"id\",\r",
+									"            \"title\",\r",
+									"            \"dueDate\",\r",
+									"            \"completed\"\r",
+									"        ]\r",
+									"    }\r",
+									"};\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Body matches schema\", function () {\r",
+									"    pm.expect(pm.response.json()).to.be.an(\"array\")//.that.deep.includes(schema);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Captura de id\",function(){\r",
+									"    var id = pm.response.json()\r",
+									"    console.log(id[0].id)\r",
+									"    pm.globals.set(\"ActivitiesId\", id[0].id)\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"/*pm.globals.unset('schema')\r",
+									"pm.globals.unset('_userid')\r",
+									"pm.globals.unset('users')\r",
+									"pm.globals.unset('firstName')\r",
+									"pm.globals.unset('email')\r",
+									"pm.globals.unset('age')\r",
+									"pm.globals.unset('userID')\r",
+									"pm.globals.unset('Email')\r",
+									"pm.globals.unset('userPassword')\r",
+									"pm.globals.unset('ActivitiesId')/*/"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true,
+						"disabledSystemHeaders": {
+							"connection": true,
+							"accept-encoding": true,
+							"accept": true
+						}
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://fakerestapi.azurewebsites.net/api/v1/Activities",
+							"protocol": "https",
+							"host": [
+								"fakerestapi",
+								"azurewebsites",
+								"net"
+							],
+							"path": [
+								"api",
+								"v1",
+								"Activities"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "BuscaPeloID",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									" pm.test(\"CapturadeID\",function(){\r",
+									"     var id = pm.response.json().id\r",
+									"  //  console.log(id[2]);\r",
+									"  \r",
+									" })"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "accept",
+								"value": "text/plain; v=1.0"
+							}
+						],
+						"url": {
+							"raw": "{{baseURL}}/api/v1/Activities/1",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"Activities",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "BuscaPeloID",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									" pm.test(\"CapturadeID\",function(){\r",
+									"     var id = pm.response.json()\r",
+									"    console.log(id);\r",
+									" })"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"packages": {},
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/api/v1/Activities/2",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"Activities",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Criar atividades",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									" "
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"content-length": true,
+							"host": true,
+							"user-agent": true,
+							"connection": true,
+							"accept-encoding": true,
+							"accept": true
+						}
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "accept",
+								"value": "text/plain; v=1.0",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"id\": 1001,\r\n  \"title\": \"testando atividades\",\r\n  \"dueDate\": \"2025-05-08T15:57:15.865Z\",\r\n  \"completed\": false\r\n}\r\n ",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://fakerestapi.azurewebsites.net/api/v1/Activities",
+							"protocol": "https",
+							"host": [
+								"fakerestapi",
+								"azurewebsites",
+								"net"
+							],
+							"path": [
+								"api",
+								"v1",
+								"Activities"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Atualizar atividades",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var schema = {\r",
+									"    \"type\": \"object\",\r",
+									"    \"properties\": {\r",
+									"        \"id\": {\r",
+									"            \"type\": \"integer\"\r",
+									"        },\r",
+									"        \"title\": {\r",
+									"            \"type\": \"string\"\r",
+									"        },\r",
+									"        \"dueDate\": {\r",
+									"            \"type\": \"string\"\r",
+									"        },\r",
+									"        \"completed\": {\r",
+									"            \"type\": \"boolean\"\r",
+									"        }\r",
+									"    },\r",
+									"    \"required\": [\r",
+									"        \"id\",\r",
+									"        \"title\",\r",
+									"        \"dueDate\",\r",
+									"        \"completed\"\r",
+									"    ]\r",
+									"};\r",
+									" \r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									" \r",
+									"pm.test(\"Schema is valid\", function () {\r",
+									"    pm.expect(tv4.validate(pm.response.json(), schema)).to.be.true;\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Captura de id\",function(){\r",
+									"    var id = pm.response.json();\r",
+									"    console.log(id.id);\r",
+									"    pm.globals.set(\"ActivitiesId\", id.id);\r",
+									"});\r",
+									"//*\r",
+									"//postman -> pm\r",
+									"//validar -> expected()\r",
+									"//pm.response.id -> pm.response.json().id\r",
+									"//*\r",
+									"pm.test(\"Validar o id de criação de atividades\", function () {\r",
+									"    pm.expect(pm.response.json().id).to.eql(parseInt(pm.globals.get(\"ActivitiesId\")));\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Validar o id de criação de atividades\", function () {\r",
+									"    pm.expect(pm.response.json().id).to.eql(parseInt(pm.globals.get(\"ActivitiesId\")));\r",
+									"});\r",
+									"pm.test(\"Status é 200\", function () {\r",
+									" pm.expect(pm.response.code).to.equal(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Validar o id de criação de atividades\",function(){\r",
+									"    pm.globals.unset(\"ActivitiesId\")\r",
+									"    pm.expect(pm.response.json().id,).to.be.eql(35)\r",
+									"    pm.globals.set(\"ActivitiesId\",pm.response.json().id)\r",
+									"})\r",
+									"//)\r",
+									"pm.test(\"testando atividade\", function(){\r",
+									"    pm.expect(pm.response.json().title).to.eql(\"Testando uma nova activities\")\r",
+									"    pm.console(om.response.json())  \r",
+									"})"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"content-length": true,
+							"host": true,
+							"user-agent": true,
+							"connection": true,
+							"accept-encoding": true,
+							"accept": true
+						}
+					},
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"id\": 35,\r\n  \"title\": \"Testando uma nova activities\",\r\n  \"dueDate\": \"2025-05-06T12:38:09.791Z\",\r\n  \"completed\": false\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/api/v1/Activities/35",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"Activities",
+								"35"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Deletar atividades",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var schema = {\r",
+									"    \"type\": \"object\",\r",
+									"    \"properties\": {\r",
+									"        \"id\": {\r",
+									"            \"type\": \"integer\"\r",
+									"        },\r",
+									"        \"title\": {\r",
+									"            \"type\": \"string\"\r",
+									"        },\r",
+									"        \"dueDate\": {\r",
+									"            \"type\": \"string\"\r",
+									"        },\r",
+									"        \"completed\": {\r",
+									"            \"type\": \"boolean\"\r",
+									"        }\r",
+									"    },\r",
+									"    \"required\": [\r",
+									"        \"id\",\r",
+									"        \"title\",\r",
+									"        \"dueDate\",\r",
+									"        \"completed\"\r",
+									"    ]\r",
+									"};\r",
+									" \r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"}); "
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"content-length": true,
+							"host": true,
+							"user-agent": true,
+							"connection": true,
+							"accept-encoding": true,
+							"accept": true
+						}
+					},
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"id\": 35,\r\n  \"title\": \"Testando uma nova activities\",\r\n  \"dueDate\": \"2025-05-06T12:38:09.791Z\",\r\n  \"completed\": false\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/api/v1/Activities/35",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"Activities",
+								"35"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "minha massa de testes",
+			"item": [
+				{
+					"name": "busca nova pessoa",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									" "
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									" var schema = {\r",
+									"  \"type\": \"object\",\r",
+									"  \"properties\": {\r",
+									"    \"message\": { \"type\": \"string\" }\r",
+									"  },\r",
+									"  \"required\": [\"message\"]\r",
+									"};\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.globals.unset(\"Email\",\"\")\r",
+									"pm.globals.unset(\"userID\",\"null\")\r",
+									"\r",
+									"console.log(pm.response.json().results[0].name.first)\r",
+									"pm.environment.set(\"userName\", pm.response.json().results[0].name.first);\r",
+									"pm.environment.set(\"userEmail\", pm.response.json().results[0].email);\r",
+									"pm.environment.set(\"userPassword\", pm.response.json().results[0].login.password);\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"nome\": \" {{nome}}\",\r\n  \"email\": \" {{email}}\",\r\n  \"password\":  \" {{userPassword}}\",\r\n  \"administrador\": true\r\n\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://randomuser.me/api",
+							"protocol": "https",
+							"host": [
+								"randomuser",
+								"me"
+							],
+							"path": [
+								"api"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
