@@ -25,6 +25,18 @@ npm install -g newman
 ```
 npm install -g newman newman-reporter-html
 ```
-Texto em estilo normal
+# Como rodar os testes
+- import collection e environments
+- execute os testes de forma manual ou automatizada
 
- 
+# Pelo newman
+-abra o console de sua preferência CMD (que é o prompt de comandos do windows, powelshell e execute a linha de comandos abaixo:
+Obs: o comando abaixo executa todos os testes
+"""
+newman run serverest.postman_collection.json -e ServerRest_env.postman_environment -r cli
+"""
+ # Gerando os relatórios de testes
+
+ newman run serverest.postman_collection -e ServerRest_env.postman_environment -r cli,htmlextra --reporter-htmlextra-export ./relatorios/resultado.html
+
+#Report 
