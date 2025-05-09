@@ -17,7 +17,7 @@ newman-reporter-html
 #como instalar o ambiente
 <br/>primeiro baixe o node clicando aqui [BaixarNode](https://nodejs.org/en/download)<b/>
 <br/>segundo baixar o newman   [BaixarNewman](https://www.npmjs.com/package/newman)
-terceiro: realize a instalação dos relatórios [BaixarNewman](https://github.com/postmanlabs/newman-reporter-html) e [Baixar NPM]( https://www.npmjs.com/package/newman-reporter-html)
+<br/>terceiro: realize a instalação dos relatórios [BaixarNewman](https://github.com/postmanlabs/newman-reporter-html) e [Baixar NPM]( https://www.npmjs.com/package/newman-reporter-html)
 
 
 5. ## Exemplo de código Python
