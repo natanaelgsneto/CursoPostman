@@ -1,27 +1,30 @@
 # postman
 
-#O que é?
+# O que é?
 Este repositório é criado para o bootcamp
 
-#tecnologias utilizadas
+# tecnologias utilizadas
 Postman
 Newman
 newman htmlextra
 node version  v22.15.0
 newman-reporter-html
 
-#Documentações
+# Documentações
 [Visite a  documentação](https://bold-firefly-54160.postman.co/documentation/44014771-bf1b03c0-3bfe-4594-9983-feae215ca7c3)
 [Visite a  API Utilizada](https://serverest.dev/)
 
-#como instalar o ambiente
-<br/>primeiro baixe o node clicando aqui [BaixarNode](https://nodejs.org/en/download)<b/>
-<br/>segundo baixar o newman   [BaixarNewman](https://www.npmjs.com/package/newman)
-<br/>terceiro: realize a instalação dos relatórios [BaixarNewman](https://github.com/postmanlabs/newman-reporter-html) e [Baixar NPM]( https://www.npmjs.com/package/newman-reporter-html)
-
-
-5. ## Exemplo de código Python
+# Como instalar o ambiente
+2° Baixe o node clicando aqui [BaixarNode](https://nodejs.org/en/download)<br/>
+3° Realize a instalação do newman de forma global clicando no link:   [BaixarNewman](https://www.npmjs.com/package/newman)<br/>
+```
+npm install -g newman 
+```
+3ºterceiro: realize a instalação da dependência dos relatórios [newman-reporter-html](https://www.npmjs.com/package/newman-reporter-html) 
 
 ```
 npm install -g newman newman-reporter-html
----
+```
+Texto em estilo normal
+
+ 
